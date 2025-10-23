@@ -8,7 +8,6 @@
   * { box-sizing: border-box; margin:0; padding:0; }
   body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f7; color:#333; }
 
-  /* Header - beach / ocean scene */
   header {
     position: relative;
     height: 300px;
@@ -28,14 +27,13 @@
   header h1 {
     position:relative;
     z-index:1;
-    color:#2e8b57;              /* green text requested */
+    color:#2e8b57;
     font-size:2.6rem;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
     padding: 0 12px;
     text-align:center;
   }
 
-  /* Navigation */
   nav {
     background:#3cb371;
     display:flex;
@@ -47,7 +45,6 @@
   nav a { color:#fff; text-decoration:none; font-weight:600; }
   nav a:hover { text-decoration:underline; }
 
-  /* Hero */
   .hero {
     text-align:center;
     padding:44px 20px;
@@ -57,7 +54,6 @@
   .hero h2 { font-size:2.2rem; margin-bottom:8px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); }
   .hero p { max-width:820px; margin: 0 auto; font-size:1.05rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.45); }
 
-  /* Content / Products */
   .content { max-width:1000px; margin:32px auto; padding:0 16px; }
   .content h3 { color:#2e8b57; margin-bottom:12px; }
   .product-list { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
@@ -77,7 +73,6 @@
   button { background:#2e8b57; color:#fff; border:none; padding:10px 12px; border-radius:8px; cursor:pointer; font-weight:600; }
   button:hover { background:#39b36b; }
 
-  /* Floating cart */
   #cart-icon {
     position:fixed;
     top:18px;
@@ -110,7 +105,6 @@
     font-size:12px;
   }
 
-  /* shake */
   @keyframes shake {
     0% { transform: translate(0,0) rotate(0deg); }
     20% { transform: translate(-3px,2px) rotate(-6deg); }
@@ -121,7 +115,6 @@
   }
   .shake { animation: shake 0.5s; }
 
-  /* Cart popup */
   #cart-popup {
     position:fixed;
     top:84px;
@@ -155,13 +148,11 @@
 </head>
 <body>
 
-<!-- Header: beach / ocean scene (static image) -->
 <header>
-  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80" alt="Beach ocean scene">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80" alt="Beach ocean scene with sea moss">
   <h1>Sea Moss & Herbal Essentials</h1>
 </header>
 
-<!-- Nav -->
 <nav>
   <a href="#home">Home</a>
   <a href="#products">Products</a>
@@ -169,106 +160,75 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<!-- Hero -->
-<section class="hero" id="home" aria-label="Hero">
+<section class="hero" id="home">
   <h2>Natural Health from the Sea</h2>
   <p>Boost your wellness with our premium sea moss and herbal products — mineral-rich, carefully prepared, and made with love.</p>
 </section>
 
-<!-- Products -->
-<section class="content" id="products" aria-label="Products">
+<section class="content" id="products">
   <h3>Our Products</h3>
+  <div class="product-list">
 
-  <div class="product-list" role="list">
     <!-- Sea Moss Gel -->
-    <div class="product" role="listitem" aria-label="Sea Moss Gel">
+    <div class="product">
       <img src="https://i.imgur.com/4GxT7qD.jpg" alt="Sea Moss Gel jar">
       <h4>Sea Moss Gel</h4>
       <p class="price">$30</p>
-
-      <!-- Flavors dropdown (same list) -->
-      <label for="flavor-seamoss" style="display:block; text-align:left; font-size:0.9rem; margin-bottom:6px;">Choose flavor</label>
-      <select id="flavor-seamoss" aria-label="Sea Moss Gel flavor">
-        <option>Raspberry Leaf</option>
-        <option>Hyssop Leaf</option>
-        <option>Lemongrass</option>
-        <option>Soursop Leaf</option>
-        <option>Ashwagandha</option>
-        <option>Dandelion Leaf</option>
+      <label for="flavor-seamoss">Choose flavor</label>
+      <select id="flavor-seamoss">
+        <option>Soursop</option>
         <option>Blueberry</option>
         <option>Pineapple</option>
         <option>Cherries</option>
         <option>Strawberry</option>
-        <option>Mango</option>
       </select>
-
-      <input id="qty-seamoss" type="number" min="1" value="1" aria-label="Sea Moss Gel quantity">
+      <input id="qty-seamoss" type="number" min="1" value="1">
       <button onclick="addToCartFromUI('Sea Moss Gel', 30, 'flavor-seamoss', 'qty-seamoss')">Add to Cart</button>
     </div>
 
     <!-- Herbal Tea -->
-    <div class="product" role="listitem" aria-label="Herbal Tea">
+    <div class="product">
       <img src="https://i.imgur.com/5ZbKn0b.jpg" alt="Herbal Tea">
       <h4>Herbal Tea</h4>
-      <p class="price">$10</p>
-
-      <label for="flavor-herbal" style="display:block; text-align:left; font-size:0.9rem; margin-bottom:6px;">Choose flavor</label>
-      <select id="flavor-herbal" aria-label="Herbal Tea flavor">
+      <p class="price">$5</p>
+      <label for="flavor-herbal">Choose flavor</label>
+      <select id="flavor-herbal">
         <option>Raspberry Leaf</option>
         <option>Hyssop Leaf</option>
         <option>Lemongrass</option>
         <option>Soursop Leaf</option>
         <option>Ashwagandha</option>
         <option>Dandelion Leaf</option>
-        <option>Blueberry</option>
-        <option>Pineapple</option>
-        <option>Cherries</option>
-        <option>Strawberry</option>
-        <option>Mango</option>
       </select>
-
-      <input id="qty-herbal" type="number" min="1" value="1" aria-label="Herbal Tea quantity">
-      <button onclick="addToCartFromUI('Herbal Tea', 10, 'flavor-herbal', 'qty-herbal')">Add to Cart</button>
+      <input id="qty-herbal" type="number" min="1" value="1">
+      <button onclick="addToCartFromUI('Herbal Tea', 5, 'flavor-herbal', 'qty-herbal')">Add to Cart</button>
     </div>
+
   </div>
 </section>
 
-<!-- Floating cart icon -->
-<div id="cart-icon" aria-label="Open cart" role="button" tabindex="0" onclick="toggleCartPopup()">
-  🛒
-  <span class="badge" id="cart-count">0</span>
+<div id="cart-icon" onclick="toggleCartPopup()" tabindex="0" role="button">
+  🛒 <span class="badge" id="cart-count">0</span>
 </div>
 
-<!-- Cart popup -->
-<div id="cart-popup" aria-live="polite">
+<div id="cart-popup">
   <h4>Your Cart</h4>
-  <div id="cart-items" style="margin-bottom:8px;"></div>
+  <div id="cart-items"></div>
   <div class="cart-total" id="cart-total">Total: $0</div>
-
-  <button id="checkout-button" style="margin-top:10px;" onclick="showPaymentOptions()">Checkout</button>
-
+  <button id="checkout-button" onclick="showPaymentOptions()">Checkout</button>
   <div class="payment-options" id="payment-options" style="display:none;">
-    <!-- PayPal SDK container (dynamic checkout that charges the cart total) -->
     <div id="paypal-button-container"></div>
-
-    <!-- Direct PayPal.me link -->
     <button class="link" onclick="window.open('https://www.paypal.me/PagetFoster','_blank')">Pay with PayPal.me</button>
-
-    <!-- Cash App -->
     <button class="link" onclick="window.open('https://cash.app/$pfoster12','_blank')">Pay with Cash App</button>
-
-    <!-- Stripe placeholder (replace with your payment link) -->
     <button class="link" onclick="window.open('YOUR_STRIPE_PAYMENT_LINK','_blank')">Pay with Card (Stripe)</button>
   </div>
 </div>
 
-<!-- About -->
-<section class="content" id="about" style="margin-top:18px;">
+<section class="content" id="about">
   <h3>About Us</h3>
   <p>At Sea Moss & Herbal Essentials, we embrace the healing rhythms of nature. Every jar of sea moss and every herbal mix is made to support your body's natural harmony - from mineral-rich ocean moss to soothing earth-grown herbs. Our mission is to reconnect you with the roots of wellness, nourishment, balance, and authenticity.</p>
 </section>
 
-<!-- Contact -->
 <section class="content" id="contact">
   <h3>Contact</h3>
   <p>Email: <a href="mailto:seamossessentials4lyfe@gmail.com">seamossessentials4lyfe@gmail.com</a></p>
@@ -279,143 +239,67 @@
   &copy; 2025 Sea Moss & Herbal Essentials
 </footer>
 
-<!-- PayPal SDK (replace YOUR_PAYPAL_CLIENT_ID with your real client id for live checkout) -->
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
 <script>
-/* ======= Cart logic (carefully written & triple-checked) ======= */
-const cart = []; // { name, price, qty }
-
-function addToCartFromUI(name, price, flavorSelectId, qtyInputId) {
-  const flavor = document.getElementById(flavorSelectId).value;
-  const qty = parseInt(document.getElementById(qtyInputId).value, 10) || 1;
+const cart = [];
+function addToCartFromUI(name, price, flavorSelectId, qtyInputId){
+  const flavor=document.getElementById(flavorSelectId).value;
+  const qty=parseInt(document.getElementById(qtyInputId).value)||1;
   addToCart(name, price, qty, flavor);
 }
-
-function addToCart(name, price, qty, flavor) {
-  const fullName = flavor ? `${name} (${flavor})` : name;
-  const existing = cart.find(i => i.name === fullName);
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    cart.push({ name: fullName, price: Number(price), qty: Number(qty) });
-  }
-  animateCartIcon();
-  renderCart();
-  openCartPopup();
+function addToCart(name, price, qty, flavor){
+  const fullName=flavor?`${name} (${flavor})`:name;
+  const existing=cart.find(i=>i.name===fullName);
+  if(existing){ existing.qty+=qty; } else { cart.push({name:fullName, price:Number(price), qty:Number(qty)});}
+  animateCartIcon(); renderCart(); openCartPopup();
 }
-
-function removeFromCart(name) {
-  const idx = cart.findIndex(i => i.name === name);
-  if (idx !== -1) cart.splice(idx,1);
-  renderCart();
-}
-
-function renderCart() {
-  const container = document.getElementById('cart-items');
-  container.innerHTML = '';
-  let total = 0;
-  let count = 0;
-  cart.forEach(item => {
-    const row = document.createElement('div');
-    row.className = 'cart-item';
-    const label = document.createElement('div');
-    label.textContent = `${item.name} (x${item.qty}) - $${(item.price * item.qty).toFixed(2)}`;
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'remove';
-    removeBtn.textContent = 'Remove';
-    removeBtn.onclick = () => removeFromCart(item.name);
-    row.appendChild(label);
-    row.appendChild(removeBtn);
-    container.appendChild(row);
-    total += item.price * item.qty;
-    count += item.qty;
+function removeFromCart(name){ const idx=cart.findIndex(i=>i.name===name); if(idx!==-1) cart.splice(idx,1); renderCart();}
+function renderCart(){
+  const container=document.getElementById('cart-items'); container.innerHTML='';
+  let total=0; let count=0;
+  cart.forEach(item=>{
+    const row=document.createElement('div'); row.className='cart-item';
+    const label=document.createElement('div'); label.textContent=`${item.name} (x${item.qty}) - $${(item.price*item.qty).toFixed(2)}`;
+    const removeBtn=document.createElement('button'); removeBtn.className='remove'; removeBtn.textContent='Remove';
+    removeBtn.onclick=()=>removeFromCart(item.name);
+    row.appendChild(label); row.appendChild(removeBtn); container.appendChild(row);
+    total+=item.price*item.qty; count+=item.qty;
   });
-
-  document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
-  document.getElementById('cart-count').textContent = count;
-  // Hide payment options when cart empties
-  if (cart.length === 0) {
-    document.getElementById('payment-options').style.display = 'none';
-  }
+  document.getElementById('cart-total').textContent=`Total: $${total.toFixed(2)}`;
+  document.getElementById('cart-count').textContent=count;
+  if(cart.length===0) document.getElementById('payment-options').style.display='none';
 }
-
-/* Cart popup open/close and animation */
-function toggleCartPopup() {
-  const popup = document.getElementById('cart-popup');
-  popup.classList.toggle('show');
+function toggleCartPopup(){ document.getElementById('cart-popup').classList.toggle('show'); }
+function openCartPopup(){ document.getElementById('cart-popup').classList.add('show'); }
+function animateCartIcon(){
+  const icon=document.getElementById('cart-icon'); icon.classList.remove('shake'); void icon.offsetWidth; icon.classList.add('shake');
 }
-function openCartPopup() {
-  const popup = document.getElementById('cart-popup');
-  popup.classList.add('show');
+function showPaymentOptions(){
+  if(cart.length===0){ alert('Your cart is empty!'); return; }
+  document.getElementById('payment-options').style.display='flex'; renderPayPalButton();
 }
-
-/* Cart icon shake animation */
-function animateCartIcon() {
-  const icon = document.getElementById('cart-icon');
-  icon.classList.remove('shake');
-  // reflow to restart animation
-  void icon.offsetWidth;
-  icon.classList.add('shake');
-}
-
-/* Show payment options (PayPal SDK button + direct links) */
-function showPaymentOptions() {
-  if (cart.length === 0) {
-    alert('Your cart is empty!');
-    return;
-  }
-  document.getElementById('payment-options').style.display = 'flex';
-  renderPayPalButton();
-}
-
-/* ====== PayPal SDK dynamic checkout button ======
-   This renders a PayPal Checkout button that charges the cart total.
-   Replace YOUR_PAYPAL_CLIENT_ID above with your client id to fully enable.
-==================================================*/
-function renderPayPalButton() {
-  const container = document.getElementById('paypal-button-container');
-  container.innerHTML = ''; // clear previous
-  if (typeof paypal === 'undefined') {
-    // SDK not loaded (or client id not set). Show a fallback link to paypal.me
-    const fallback = document.createElement('div');
-    fallback.innerHTML = '<small>PayPal SDK not loaded — use the PayPal.me button below.</small>';
-    container.appendChild(fallback);
-    return;
-  }
-
+function renderPayPalButton(){
+  const container=document.getElementById('paypal-button-container'); container.innerHTML='';
+  if(typeof paypal==='undefined'){ container.innerHTML='<small>PayPal SDK not loaded — use the PayPal.me button below.</small>'; return; }
   paypal.Buttons({
-    style: { layout:'vertical', color:'blue', shape:'rect', label:'pay' },
-    createOrder: function(data, actions) {
-      const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
-      return actions.order.create({
-        purchase_units: [{
-          amount: { value: total.toFixed(2) }
-        }]
-      });
+    style:{layout:'vertical',color:'blue',shape:'rect',label:'pay'},
+    createOrder:function(data,actions){
+      const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+      return actions.order.create({purchase_units:[{amount:{value:total.toFixed(2)}}]});
     },
-    onApprove: function(data, actions) {
+    onApprove:function(data,actions){
       return actions.order.capture().then(function(details){
-        alert('Transaction completed by ' + (details.payer?.name?.given_name || 'customer') + '. Thank you!');
-        // clear cart
-        cart.length = 0;
-        renderCart();
-        document.getElementById('payment-options').style.display = 'none';
+        alert('Transaction completed by '+(details.payer?.name?.given_name||'customer')+'. Thank you!');
+        cart.length=0; renderCart(); document.getElementById('payment-options').style.display='none';
       });
     },
-    onError: function(err) {
-      console.error(err);
-      alert('PayPal error — try the PayPal.me link or Cash App.');
-    }
+    onError:function(err){ console.error(err); alert('PayPal error — try the PayPal.me link or Cash App.'); }
   }).render('#paypal-button-container');
 }
-
-/* initial render (if any preloaded items) */
 renderCart();
-
-/* Accessibility: allow Enter key to open cart when focused */
-document.getElementById('cart-icon').addEventListener('keydown', function(e){
-  if (e.key === 'Enter' || e.key === ' ') toggleCartPopup();
-});
+document.getElementById('cart-icon').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') toggleCartPopup(); });
 </script>
 </body>
 </html>
+
+
