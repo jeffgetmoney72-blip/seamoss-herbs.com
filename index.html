@@ -8,23 +8,22 @@
   * { box-sizing: border-box; margin:0; padding:0; }
   body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f7; color:#333; }
 
-  /* Header */
+  /* Header - corrected */
   header {
     position: relative;
-    width: 100%;
-    height: auto;
-    max-height: 300px;
+    height: 300px;
     display:flex;
     align-items:center;
     justify-content:center;
     overflow:hidden;
   }
   header img {
-    width: 100%;
-    height: auto;
-    min-height: 300px;
-    object-fit: cover;
-    object-position: center;
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
     z-index:0;
   }
   header h1 {
@@ -149,7 +148,6 @@
     header h1 { font-size:1.8rem; padding: 0 10px; }
     .product { width:100%; max-width:420px; }
     #cart-popup { right:12px; left:12px; width:auto; }
-    header img { min-height:180px; }
     .hero { padding:30px 16px; }
   }
 </style>
@@ -179,7 +177,7 @@
 
     <!-- Sea Moss Gel -->
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1626190679534-57c91e1d6072?auto=format&fit=crop&w=800&q=80" alt="Sea Moss Gel jar">
+      <img src="https://i.imgur.com/4GxT7qD.jpg" alt="Sea Moss Gel jar">
       <h4>Sea Moss Gel</h4>
       <p class="price">$30</p>
       <label for="flavor-seamoss">Choose flavor</label>
@@ -196,7 +194,7 @@
 
     <!-- Herbal Tea -->
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1608049383443-6d19505d39ed?auto=format&fit=crop&w=800&q=80" alt="Herbal Tea">
+      <img src="https://i.imgur.com/5ZbKn0b.jpg" alt="Herbal Tea">
       <h4>Herbal Tea</h4>
       <p class="price">$5</p>
       <label for="flavor-herbal">Choose flavor</label>
@@ -313,4 +311,3 @@ document.getElementById('cart-icon').addEventListener('keydown', function(e){ if
 </script>
 </body>
 </html>
-
