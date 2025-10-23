@@ -1,142 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sea Moss & Herbal Essentials</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: Arial, sans-serif; background-color:#f7f7f7; color:#333; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sea Moss & Herbal Essentials</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: Arial, sans-serif; background-color:#f7f7f7; color:#333; }
 
-/* Header */
-header {
-    position: relative;
-    height: 300px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-}
-header img {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:0;
-}
-header h1 {
-    position: relative;
-    z-index:1;
-    font-size:3em;
-    color:#2e8b57;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
+        /* Header */
+        header {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        header img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 3em;
+            color: #2e8b57;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
 
-/* Navigation */
-nav { background-color:#3cb371; display:flex; justify-content:center; padding:10px 0; flex-wrap:wrap; }
-nav a { color:white; text-decoration:none; margin:0 15px; font-weight:bold; }
-nav a:hover { text-decoration:underline; }
+        /* Navigation */
+        nav { background-color: #3cb371; display: flex; justify-content: center; padding: 10px 0; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; }
+        nav a:hover { text-decoration: underline; }
 
-/* Hero Section */
-.hero { text-align:center; padding:50px 20px; background:url('https://images.unsplash.com/photo-1618221640931-7f7d0b5b3d3f?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover; color:white; }
-.hero h1 { font-size:3em; margin-bottom:10px; text-shadow:2px 2px 4px rgba(0,0,0,0.5); }
-.hero p { font-size:1.2em; text-shadow:1px 1px 3px rgba(0,0,0,0.5); }
+        /* Hero Section */
+        .hero { text-align: center; padding: 50px 20px; background: url('https://media.giphy.com/media/3o6Zt6v9T3s2Y5c6kI/giphy.gif') no-repeat center center/cover; color: white; }
+        .hero h1 { font-size: 3em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2em; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
-/* Content */
-.content { padding:40px 20px; max-width:1000px; margin:auto; }
-.content h2 { margin-bottom:20px; color:#2e8b57; }
-.product-list { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
-.product { background:white; padding:20px; border-radius:10px; width:250px; text-align:center; box-shadow:0 4px 6px rgba(0,0,0,0.1); }
-.product img { width:100%; border-radius:10px; margin-bottom:15px; }
-input[type=number], select { width:100%; padding:5px; margin-bottom:10px; }
-button { background-color:#2e8b57; color:white; border:none; padding:10px 15px; border-radius:5px; cursor:pointer; }
-button:hover { background-color:#3cb371; }
+        /* Content */
+        .content { padding: 40px 20px; max-width: 1000px; margin: auto; }
+        .content h2 { margin-bottom: 20px; color: #2e8b57; }
+        .product-list { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .product { background: white; padding: 20px; border-radius: 10px; width: 250px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .product img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        input[type=number], select { width: 100%; padding: 5px; margin-bottom: 10px; }
+        button { background-color: #2e8b57; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #3cb371; }
 
-/* Floating Cart Icon */
-#cart-icon {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color:#2e8b57;
-    color:white;
-    border-radius:50%;
-    width:50px;
-    height:50px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    font-size:1.2em;
-    box-shadow:0 4px 6px rgba(0,0,0,0.3);
-    z-index:1000;
-    transition: transform 0.2s;
-}
-#cart-icon span {
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:red;
-    color:white;
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    font-size:0.8em;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+        /* Floating Cart Icon */
+        #cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2e8b57;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+        #cart-icon span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 0.8em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* Shake Animation */
-@keyframes shake {
-    0% { transform: translate(0,0) rotate(0deg); }
-    20% { transform: translate(-2px,2px) rotate(-5deg); }
-    40% { transform: translate(2px,-2px) rotate(5deg); }
-    60% { transform: translate(-2px,2px) rotate(-5deg); }
-    80% { transform: translate(2px,-2px) rotate(5deg); }
-    100% { transform: translate(0,0) rotate(0deg); }
-}
-#cart-icon.shake { animation: shake 0.5s; }
+        /* Cart Popup */
+        #cart-popup {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 300px;
+            max-height: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            z-index: 1000;
+        }
+        #cart-popup.show { max-height: 700px; opacity: 1; }
 
-/* Cart Popup */
-#cart-popup {
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    width:300px;
-    max-height:0;
-    overflow:hidden;
-    box-shadow:0 4px 6px rgba(0,0,0,0.2);
-    transition: max-height 0.5s ease, opacity 0.5s ease;
-    opacity:0;
-    z-index:1000;
-}
-#cart-popup.show { max-height:700px; opacity:1; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .cart-item button { background: red; padding: 2px 5px; font-size: 0.8em; cursor: pointer; }
+        .cart-total { font-weight: bold; margin-top: 10px; }
+        #checkout-btn-popup { margin-top: 10px; width: 100%; }
+        .payment-options { display: flex; flex-direction: column; margin-top: 10px; }
+        .payment-options button { margin-top: 5px; }
 
-.cart-item { display:flex; justify-content:space-between; margin-bottom:5px; }
-.cart-item button { background:red; padding:2px 5px; font-size:0.8em; cursor:pointer; }
-.cart-total { font-weight:bold; margin-top:10px; }
-#checkout-btn-popup { margin-top:10px; width:100%; }
-.payment-options { display:flex; flex-direction:column; margin-top:10px; }
-.payment-options button { margin-top:5px; }
+        /* Footer */
+        footer { text-align: center; padding: 20px; background-color: #2e8b57; color: white; margin-top: 40px; }
 
-/* Footer */
-footer { text-align:center; padding:20px; background-color:#2e8b57; color:white; margin-top:40px; }
-
-/* Responsive */
-@media(max-width:768px){ 
-    .product-list{ flex-direction:column; align-items:center; } 
-}
-</style>
+        /* Responsive */
+        @media(max-width: 768px) {
+            .product-list { flex-direction: column; align-items: center; }
+        }
+    </style>
 </head>
 <body>
 
 <header>
-    <img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" alt="Ocean Waves">
+    <img src="https://media.giphy.com/media/3o6Zt6v9T3s2Y5c6kI/giphy.gif" alt="Sea Moss Gel Pouring">
     <h1>Sea Moss & Herbal Essentials</h1>
 </header>
 
@@ -155,33 +144,36 @@ footer { text-align:center; padding:20px; background-color:#2e8b57; color:white;
 <section class="content" id="products">
     <h2>Our Products</h2>
     <div class="product-list">
+        <!-- Sea Moss Gel Flavors -->
         <div class="product">
             <img src="https://i.imgur.com/4GxT7qD.jpg" alt="Sea Moss Gel">
             <h3>Sea Moss Gel</h3>
-            <p>$30</p>
-            <input type="number" min="1" value="1" id="qty-seamoss">
-            <button onclick="addToCart('Sea Moss Gel', 30, parseInt(document.getElementById('qty-seamoss').value))">Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="https://i.imgur.com/5ZbKn0b.jpg" alt="Herbal Tea">
-            <h3>Herbal Tea</h3>
-            <p>$10</p>
-            <input type="number" min="1" value="1" id="qty-herbaltea">
-            <button onclick="addToCart('Herbal Tea', 10, parseInt(document.getElementById('qty-herbaltea').value))">Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="https://i.imgur.com/r7R9u1y.jpg" alt="Soursop">
-            <h3>Soursop</h3>
-            <p>$30</p>
-            <select id="soursop-flavor">
+            <select id="seamoss-flavor">
                 <option value="Blueberry">Blueberry</option>
                 <option value="Pineapple">Pineapple</option>
                 <option value="Cherries">Cherries</option>
                 <option value="Strawberry">Strawberry</option>
                 <option value="Mango">Mango</option>
+                <option value="Soursop">Soursop</option>
             </select>
-            <input type="number" min="1" value="1" id="qty-soursop">
-            <button onclick="addToCart('Soursop', 30, parseInt(document.getElementById('qty-soursop').value), document.getElementById('soursop-flavor').value)">Add to Cart</button>
+            <input type="number" min="1" value="1" id="qty-seamoss">
+            <button onclick="addToCart('Sea Moss Gel', 30, parseInt(document.getElementById('qty-seamoss').value), document.getElementById('seamoss-flavor').value)">Add to Cart</button>
+        </div>
+
+        <!-- Herbal Tea Flavors -->
+        <div class="product">
+            <img src="https://i.imgur.com/5ZbKn0b.jpg" alt="Herbal Tea">
+            <h3>Herbal Tea</h3>
+            <select id="herbaltea-flavor">
+                <option value="Raspberry Leaf">Raspberry Leaf</option>
+                <option value="Hyssop Leaf">Hyssop Leaf</option>
+                <option value="Lemongrass">Lemongrass</option>
+                <option value="Soursop Leaf">Soursop Leaf</option>
+                <option value="Ashwagandha">Ashwagandha</option>
+                <option value="Dandelion Leaf">Dandelion Leaf</option>
+            </select>
+            <input type="number" min="1" value="1" id="qty-herbaltea">
+            <button onclick="addToCart('Herbal Tea', 10, parseInt(document.getElementById('qty-herbaltea').value), document.getElementById('herbaltea-flavor').value)">Add to Cart</button>
         </div>
     </div>
 </section>
@@ -205,98 +197,7 @@ footer { text-align:center; padding:20px; background-color:#2e8b57; color:white;
 
 <section class="content" id="about">
     <h2>About Us</h2>
-    <p>At Sea Moss & Herbal Essentials, we embrace the healing rhythms of nature. Every jar of sea moss and every herbal mix is made to support your body's natural harmony - from mineral-rich ocean moss to soothing earth-grown herbs. Our mission is to reconnect you with the roots of wellness, nourishment, balance, and authenticity.</p>
-</section>
+    <p>At Sea Moss & Herbal Essentials, we embrace the healing rhythms of nature. Every jar of sea moss and every herbal mix is made to support your body's natural harmony - from mineral-rich ocean moss to soothing earth-grown herbs. Our mission is to reconnect you with the roots of wellness
+::contentReference[oaicite:0]{index=0}
+ 
 
-<section class="content" id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:seamossessentials4lyfe@gmail.com">seamossessentials4lyfe@gmail.com</a></p>
-    <p>Phone: 469-836-5755</p>
-</section>
-
-<footer>
-    <p>&copy; 2025 Sea Moss & Herbal Essentials. All rights reserved.</p>
-</footer>
-
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
-<script>
-let cart = [];
-
-function addToCart(name, price, qty, flavor){
-    let itemName = flavor ? `${name} (${flavor})` : name;
-    let item = cart.find(i=>i.name===itemName);
-    if(item){ item.qty += qty; } else { cart.push({name:itemName, price, qty}); }
-    animateCartIcon();
-    updateCart();
-    showCartPopup();
-}
-
-function removeFromCart(name){
-    cart = cart.filter(i=>i.name!==name);
-    updateCart();
-}
-
-function updateCart(){
-    const cartItemsPopup = document.getElementById('cart-items-popup');
-    const cartCountIcon = document.getElementById('cart-count-icon');
-    const cartTotalPopup = document.getElementById('cart-total-popup');
-    cartItemsPopup.innerHTML = '';
-    let total=0, count=0;
-    cart.forEach(item=>{
-        const div=document.createElement('div');
-        div.className='cart-item';
-        div.innerHTML=`${item.name} (x${item.qty}) - $${item.price*item.qty} <button onclick="removeFromCart('${item.name}')">Remove</button>`;
-        cartItemsPopup.appendChild(div);
-        total+=item.price*item.qty;
-        count+=item.qty;
-    });
-    cartCountIcon.textContent=count;
-    cartTotalPopup.textContent=`Total: $${total}`;
-}
-
-function toggleCartPopup(){
-    const popup=document.getElementById('cart-popup');
-    popup.classList.toggle('show');
-}
-
-function showCartPopup(){
-    const popup=document.getElementById('cart-popup');
-    popup.classList.add('show');
-}
-
-function animateCartIcon(){
-    const icon=document.getElementById('cart-icon');
-    icon.classList.remove('shake');
-    void icon.offsetWidth;
-    icon.classList.add('shake');
-}
-
-function showPaymentOptions(){
-    if(cart.length===0){ alert("Your cart is empty!"); return; }
-    document.getElementById('payment-options').style.display='flex';
-    renderPayPalButton();
-}
-
-// PayPal SDK Dynamic Button
-function renderPayPalButton(){
-    const container = document.getElementById('paypal-button-container');
-    container.innerHTML = '';
-    paypal.Buttons({
-        createOrder: function(data, actions){
-            let total = cart.reduce((sum,i)=>sum+i.price*i.qty,0);
-            return actions.order.create({ purchase_units: [{ amount: { value: total.toFixed(2) } }] });
-        },
-        onApprove: function(data, actions){
-            return actions.order.capture().then(function(details){
-                alert('Transaction completed by ' + details.payer.name.given_name);
-                cart = [];
-                updateCart();
-                document.getElementById('payment-options').style.display='none';
-            });
-        }
-    }).render('#paypal-button-container');
-}
-</script>
-
-</body>
-</html>
