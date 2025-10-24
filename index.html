@@ -8,7 +8,6 @@
   * { box-sizing: border-box; margin:0; padding:0; }
   body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f7; color:#333; }
 
-  /* Header */
   header {
     position: relative;
     height: 300px;
@@ -70,12 +69,7 @@
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
-  .product:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
-  }
-
+  .product:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
   .product h4 { margin:8px 0; }
   .product p.price { font-size:1.05rem; margin-bottom:8px; color:#2e8b57; font-weight:700; }
   select, input[type=number], input[type=text], input[type=email] { width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:8px; font-size:1rem; }
@@ -139,7 +133,7 @@
     opacity:0;
     z-index:1200;
   }
-  #cart-popup.show { opacity:1; max-height:950px; padding:20px; }
+  #cart-popup.show { opacity:1; max-height:950px; padding:20px; overflow-y:auto; }
   #cart-popup h4 { margin-bottom:12px; }
   .cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:1rem; }
   .cart-item button.remove { background:#e94b4b; padding:8px 10px; border-radius:8px; font-size:0.95rem; }
@@ -285,21 +279,29 @@
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
 <script>
 const cart = [];
+
 function addToCartFromUI(name, price, flavorSelectId, qtyInputId){
-  const flavor=document.getElementById(flavorSelectId).value;
-  const qty=parseInt(document.getElementById(qtyInputId).value)||1;
+  const flavor = document.getElementById(flavorSelectId).value;
+  const qty = parseInt(document.getElementById(qtyInputId).value)||1;
   addToCart(name, price, qty, flavor);
 }
+
 function addToCart(name, price, qty, flavor){
-  const fullName=flavor?`${name} (${flavor})`:name;
-  const existing=cart.find(i=>i.name===fullName);
+  const fullName = flavor ? `${name} (${flavor})` : name;
+  const existing = cart.find(i=>i.name===fullName);
   if(existing){ existing.qty+=qty; } else { cart.push({name:fullName, price:Number(price), qty:Number(qty)});}
   animateCartIcon(); renderCart(); openCartPopup();
 }
-function removeFromCart(name){ const idx=cart.findIndex(i=>i.name===name); if(idx!==-1) cart.splice(idx,1); renderCart();}
+
+function removeFromCart(name){ 
+  const idx = cart.findIndex(i=>i.name===name); 
+  if(idx!==-1) cart.splice(idx,1); 
+  renderCart();
+}
+
 function renderCart(){
-  const container=document.getElementById('cart-items'); container.innerHTML='';
-  let total=0; let count=0;
+  const container = document.getElementById('cart-items'); container.innerHTML='';
+  let total = 0; let count = 0;
   cart.forEach(item=>{
     const row=document.createElement('div'); row.className='cart-item';
     const label=document.createElement('div'); label.textContent=`${item.name} (x${item.qty}) - $${(item.price*item.qty).toFixed(2)}`;
@@ -312,15 +314,28 @@ function renderCart(){
   document.getElementById('cart-count').textContent=count;
   if(cart.length===0) document.getElementById('payment-options').style.display='none';
 }
-function toggleCartPopup(){ document.getElementById('cart-popup').classList.toggle('show'); }
-function openCartPopup(){ document.getElementById('cart-popup').classList.add('show'); }
+
+function toggleCartPopup(){ 
+  const popup = document.getElementById('cart-popup');
+  popup.classList.toggle('show'); 
+  if(popup.classList.contains('show')) popup.scrollTop = 0;
+}
+function openCartPopup(){ 
+  const popup = document.getElementById('cart-popup');
+  popup.classList.add('show'); 
+  popup.scrollTop = 0;
+}
 function animateCartIcon(){
   const icon=document.getElementById('cart-icon'); icon.classList.remove('shake'); void icon.offsetWidth; icon.classList.add('shake');
 }
+
 function showPaymentOptions(){
   if(cart.length===0){ alert('Your cart is empty!'); return; }
-  document.getElementById('payment-options').style.display='flex'; renderPayPalButton();
+  const options = document.getElementById('payment-options');
+  options.style.display='flex'; options.scrollIntoView({behavior:'smooth'});
+  renderPayPalButton();
 }
+
 function renderPayPalButton(){
   const container=document.getElementById('paypal-button-container'); container.innerHTML='';
   if(typeof paypal==='undefined'){ container.innerHTML='<small>PayPal SDK not loaded — use the PayPal.me button below.</small>'; return; }
@@ -336,7 +351,7 @@ function renderPayPalButton(){
         cart.length=0; renderCart(); document.getElementById('payment-options').style.display='none';
       });
     },
-    onError:function(err){ console.error(err); alert('PayPal error — try the PayPal.me link or Cash App.'); }
+    onError:function(err){ console.error(err); alert('PayPal error — use the PayPal.me link or Cash App.'); }
   }).render('#paypal-button-container');
 }
 
@@ -344,4 +359,19 @@ function renderPayPalButton(){
 document.getElementById('card-payment-form').addEventListener('submit', function(e) {
   e.preventDefault();
   const email=document.getElementById('email').value;
- 
+  alert(`Thank you, ${email}! Your card payment was submitted successfully. You will receive a confirmation email shortly.`);
+  cart.length=0; renderCart(); document.getElementById('payment-options').style.display='none';
+  this.reset();
+});
+
+// Amazon Gift Card
+document.getElementById('amazon-gift-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const code = document.getElementById('amazon-code').value;
+  alert(`Amazon Gift Card code "${code}" submitted successfully!`);
+  cart.length=0; renderCart(); document.getElementById('payment-options').style.display='none';
+  this.reset();
+});
+</script>
+</body>
+</html>
