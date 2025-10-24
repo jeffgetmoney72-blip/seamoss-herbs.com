@@ -54,9 +54,54 @@
     padding: 44px 20px;
     background: url('https://images.unsplash.com/photo-1618221640931-7f7d0b5b3d3f?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
     color: #2e8b57;
+    position: relative;
+    overflow: hidden;
   }
   .hero h2 { font-size: 2.2rem; margin-bottom: 8px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); }
   .hero p { max-width: 820px; margin: 0 auto; font-size: 1.05rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.45); }
+
+  /* Ocean Waves */
+  .waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 1;
+  }
+  .wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100px;
+    background-repeat: repeat-x;
+    background-position: 0 bottom;
+    transform: translate3d(0,0,0);
+  }
+  #wave1 {
+    background-image: url('https://i.ibb.co/FY9HcYg/wave1.svg');
+    animation: wave-animation 10s linear infinite;
+    opacity: 0.5;
+    z-index:1;
+  }
+  #wave2 {
+    background-image: url('https://i.ibb.co/q1NBrRk/wave2.svg');
+    animation: wave-animation 15s linear infinite;
+    opacity: 0.3;
+    z-index:2;
+  }
+  #wave3 {
+    background-image: url('https://i.ibb.co/9pZs3jv/wave3.svg');
+    animation: wave-animation 20s linear infinite;
+    opacity: 0.4;
+    z-index:3;
+  }
+  @keyframes wave-animation {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
   .content { max-width:1000px; margin:32px auto; padding:0 16px; }
   .content h3 { color:#2e8b57; margin-bottom:12px; }
@@ -168,13 +213,24 @@
 <section class="hero" id="home">
   <h2>Natural Health from the Sea</h2>
   <p>Boost your wellness with our premium sea moss and herbal products — mineral-rich, carefully prepared, and made with love.</p>
+
+  <!-- Waves -->
+  <div class="waves">
+    <div class="wave" id="wave1"></div>
+    <div class="wave" id="wave2"></div>
+    <div class="wave" id="wave3"></div>
+  </div>
+
+  <!-- Ocean sound -->
+  <audio autoplay loop id="oceanSound">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 </section>
 
 <section class="content" id="products">
   <h3>Our Products</h3>
   <div class="product-list">
 
-    <!-- Sea Moss Gel -->
     <div class="product">
       <h4>Sea Moss Gel</h4>
       <p class="price">$30</p>
@@ -190,7 +246,6 @@
       <button onclick="addToCartFromUI('Sea Moss Gel', 30, 'flavor-seamoss', 'qty-seamoss')">Add to Cart</button>
     </div>
 
-    <!-- Herbal Tea -->
     <div class="product">
       <h4>Herbal Tea</h4>
       <p class="price">$5</p>
@@ -303,6 +358,15 @@ function renderPayPalButton(){
     onError:function(err){ console.error(err); alert('PayPal error — try the PayPal.me link or Cash App.'); }
   }).render('#paypal-button-container');
 }
+
+// --- Waves parallax on scroll ---
+window.addEventListener('scroll', function() {
+  const scrollY = window.scrollY;
+  document.getElementById('wave1').style.transform = `translateX(${scrollY * -0.2}px)`;
+  document.getElementById('wave2').style.transform = `translateX(${scrollY * -0.4}px)`;
+  document.getElementById('wave3').style.transform = `translateX(${scrollY * -0.6}px)`;
+});
+
 renderCart();
 document.getElementById('cart-icon').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') toggleCartPopup(); });
 </script>
