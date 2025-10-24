@@ -27,15 +27,15 @@
     object-position: center;
     z-index: 0;
   }
-
-  /* Style for the new header logo */
-  .header-logo {
-    position: relative;  /* stays above the background image */
+  header h1 {
+    position: relative;
     z-index: 1;
-    max-width: 250px;    /* adjust as needed */
-    height: auto;
-    display: block;
-    margin: 0 auto;      /* center the logo */
+    color: #2e8b57;
+    font-size: 2.6rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    text-align: center;
+    max-width: 90%;
+    word-wrap: break-word;
   }
 
   nav {
@@ -71,6 +71,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
+  /* Hover effect on product cards */
   .product:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 28px rgba(0,0,0,0.18);
@@ -78,7 +79,7 @@
 
   .product h4 { margin:8px 0; }
   .product p.price { font-size:1.05rem; margin-bottom:8px; color:#2e8b57; font-weight:700; }
-  select, input[type=number] { width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:6px; font-size:0.95rem; }
+  select, input[type=number], input[type=text] { width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:6px; font-size:0.95rem; }
 
   button { background:#2e8b57; color:#fff; border:none; padding:10px 12px; border-radius:8px; cursor:pointer; font-weight:600; transition: background 0.3s ease, transform 0.2s ease; }
   button:hover { background:#39b36b; transform: scale(1.05); }
@@ -115,7 +116,14 @@
     font-size:12px;
   }
 
-  @keyframes shake { 0% { transform: translate(0,0) rotate(0deg); } 20% { transform: translate(-3px,2px) rotate(-6deg); } 40% { transform: translate(3px,-2px) rotate(6deg); } 60% { transform: translate(-2px,1px) rotate(-4deg); } 80% { transform: translate(2px,-1px) rotate(4deg); } 100% { transform: translate(0,0) rotate(0deg); } }
+  @keyframes shake {
+    0% { transform: translate(0,0) rotate(0deg); }
+    20% { transform: translate(-3px,2px) rotate(-6deg); }
+    40% { transform: translate(3px,-2px) rotate(6deg); }
+    60% { transform: translate(-2px,1px) rotate(-4deg); }
+    80% { transform: translate(2px,-1px) rotate(4deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+  }
   .shake { animation: shake 0.5s; }
 
   #cart-popup {
@@ -143,7 +151,7 @@
   footer { margin-top:36px; background:#2e8b57; color:#fff; text-align:center; padding:16px 8px; }
 
   @media(max-width:760px){
-    .header-logo { max-width:180px; } /* scale logo on mobile */
+    header h1 { font-size:1.8rem; padding: 0 12px; }
     .product { width:100%; max-width:420px; }
     #cart-popup { right:12px; left:12px; width:auto; }
     .hero { padding:30px 16px; }
@@ -153,11 +161,8 @@
 <body>
 
 <header>
-  <!-- Background image stays -->
   <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80" alt="Beach ocean scene with sea moss">
-
-  <!-- New logo replaces header text -->
-  <img src="header-logo.png" alt="Sea Moss & Herbal Essentials Logo" class="header-logo">
+  <h1>Sea Moss & Herbal Essentials</h1>
 </header>
 
 <nav>
@@ -175,8 +180,6 @@
 <section class="content" id="products">
   <h3>Our Products</h3>
   <div class="product-list">
-
-    <!-- Sea Moss Gel -->
     <div class="product">
       <h4>Sea Moss Gel</h4>
       <p class="price">$30</p>
@@ -191,8 +194,6 @@
       <input id="qty-seamoss" type="number" min="1" value="1">
       <button onclick="addToCartFromUI('Sea Moss Gel', 30, 'flavor-seamoss', 'qty-seamoss')">Add to Cart</button>
     </div>
-
-    <!-- Herbal Tea -->
     <div class="product">
       <h4>Herbal Tea</h4>
       <p class="price">$5</p>
@@ -208,7 +209,6 @@
       <input id="qty-herbal" type="number" min="1" value="1">
       <button onclick="addToCartFromUI('Herbal Tea', 5, 'flavor-herbal', 'qty-herbal')">Add to Cart</button>
     </div>
-
   </div>
 </section>
 
@@ -221,11 +221,53 @@
   <div id="cart-items"></div>
   <div class="cart-total" id="cart-total">Total: $0</div>
   <button id="checkout-button" onclick="showPaymentOptions()">Checkout</button>
+  
+  <!-- Payment Options -->
   <div class="payment-options" id="payment-options" style="display:none;">
     <div id="paypal-button-container"></div>
     <button class="link" onclick="window.open('https://www.paypal.me/PagetFoster','_blank')">Pay with PayPal.me</button>
     <button class="link" onclick="window.open('https://cash.app/$pfoster12','_blank')">Pay with Cash App</button>
-    <button class="link" onclick="window.open('YOUR_STRIPE_PAYMENT_LINK','_blank')">Pay with Card (Stripe)</button>
+
+    <!-- Card Payment Form -->
+    <h4>Pay with Card</h4>
+    <div style="max-height:400px; overflow-y:auto; padding-right:6px;">
+      <form id="card-payment-form">
+        <label for="card-name">Name on Card:</label>
+        <input type="text" id="card-name" placeholder="John Doe" required>
+
+        <label for="card-number">Card Number:</label>
+        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+
+        <label for="card-expiry">Expiry Date (MM/YY):</label>
+        <input type="text" id="card-expiry" placeholder="MM/YY" required>
+
+        <label for="card-cvc">CVC:</label>
+        <input type="text" id="card-cvc" placeholder="123" required>
+
+        <h5>Shipping / Billing Address</h5>
+        <label for="address-line1">Street Address / P.O. Box:</label>
+        <input type="text" id="address-line1" placeholder="123 Main St or P.O. Box" required>
+
+        <label for="address-city">City:</label>
+        <input type="text" id="address-city" placeholder="City" required>
+
+        <label for="address-state">State / Province:</label>
+        <input type="text" id="address-state" placeholder="State" required>
+
+        <label for="address-zip">ZIP / Postal Code:</label>
+        <input type="text" id="address-zip" placeholder="12345" required>
+
+        <button type="submit">Pay with Card</button>
+      </form>
+    </div>
+
+    <!-- Amazon Gift Card -->
+    <h4>Pay with Amazon Gift Card</h4>
+    <form id="amazon-gift-form">
+      <label for="amazon-code">Gift Card Code:</label>
+      <input type="text" id="amazon-code" placeholder="Enter Amazon code" required>
+      <button type="submit">Redeem Gift Card</button>
+    </form>
   </div>
 </div>
 
@@ -236,11 +278,7 @@
 
 <section class="content" id="contact">
   <h3>Contact</h3>
-  <p>Email: 
-    <a href="mailto:seamossessentials4lyfe@gmail.com">
-      seamossessentials4lyfe@gmail.com
-    </a>
-  </p>
+  <p>Email: <a href="mailto:seamossessentials4lyfe@gmail.com">seamossessentials4lyfe@gmail.com</a></p>
   <p>Phone: 469-836-5755</p>
 </section>
 
@@ -305,6 +343,43 @@ function renderPayPalButton(){
     onError:function(err){ console.error(err); alert('PayPal error — try the PayPal.me link or Cash App.'); }
   }).render('#paypal-button-container');
 }
+
+// Card Payment Form Handling
+document.getElementById('card-payment-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('card-name').value;
+  const number = document.getElementById('card-number').value;
+  const expiry = document.getElementById('card-expiry').value;
+  const cvc = document.getElementById('card-cvc').value;
+  const address = {
+    line1: document.getElementById('address-line1').value,
+    city: document.getElementById('address-city').value,
+    state: document.getElementById('address-state').value,
+    zip: document.getElementById('address-zip').value
+  };
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2);
+
+  alert(`Card Payment Submitted!\nName: ${name}\nCard: ${number}\nExpiry: ${expiry}\nCVC: ${cvc}\nAddress: ${address.line1}, ${address.city}, ${address.state}, ${address.zip}\nTotal: $${total}`);
+  
+  cart.length = 0;
+  renderCart();
+  document.getElementById('payment-options').style.display='none';
+});
+
+// Amazon Gift Card Handling
+document.getElementById('amazon-gift-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const code = document.getElementById('amazon-code').value.trim();
+  if(!code){ alert('Please enter a valid Amazon Gift Card code.'); return; }
+  
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2);
+  alert(`Amazon Gift Card Redeemed!\nCode: ${code}\nAmount applied: $${total}\nThank you!`);
+
+  cart.length = 0;
+  renderCart();
+  document.getElementById('payment-options').style.display='none';
+});
+
 renderCart();
 document.getElementById('cart-icon').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') toggleCartPopup(); });
 </script>
