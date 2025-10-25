@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shipping & Payment - Sea Moss & Herbal Essentials</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f7f7f7;color:#333}
+header{background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;padding:60px 20px;color:#fff;text-align:center;text-shadow:2px 2px 6px rgba(0,0,0,.5)}
+.container{max-width:760px;margin:24px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+h2{color:#2e8b57;margin-bottom:14px;text-align:center}
+label{display:block;margin-top:10px;font-weight:700}
+input,select,textarea{width:100%;padding:10px;border-radius:6px;border:1px solid #ddd;margin-top:6px}
+.small{max-width:240px}
+.grid{display:flex;gap:12px;flex-wrap:wrap}
+button{background:#2e8b57;color:#fff;border:none;padding:12px;border-radius:8px;cursor:pointer;margin-top:12px}
+button.alt{background:#fff;color:#333;border:1px solid #ddd}
+.pay-btn{width:100%;text-align:center}
+.cart-summary{background:#fafafa;padding:12px;border-radius:8px;border:1px solid #eee;margin-bottom:12px}
+footer{margin-top:20px;background:#2e8b57;color:#fff;text-align:center;padding:14px}
+.note{font-size:.9rem;color:#555;text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shipping & Payment</h1>
+  <p>Fast and reliable post office shipping — 3–5 business days</p>
+</header>
+
+<div class="container">
+  <h2>Order Summary</h2>
+  <div id="cart-display" class="cart-summary"></div>
+
+  <h2>Shipping Information</h2>
+  <form id="shippingForm">
+    <label for="name">Full Name</label>
+    <input id="name" type="text" required>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" required>
+
+    <div class="grid">
+      <div style="flex:1">
+        <label for="address">Street Address</label>
+        <input id="address" type="text" required>
+      </div>
+      <div style="flex:0 0 130px">
+        <label for="zip">ZIP</label>
+        <input id="zip" type="text" required>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div style="flex:1">
+        <label for="city">City</label>
+        <input id="city" type="text" required>
+      </div>
+      <div style="flex:0 0 140px">
+        <label for="state">State</label>
+        <input id="state" type="text" required>
+      </div>
+    </div>
+
+    <h2>Payment Method</h2>
+    <label for="payment">Choose Payment</label>
+    <select id="payment" required>
+      <option value="">Select payment</option>
+      <option value="paypal">PayPal</option>
+      <option value="cashapp">Cash App</option>
+      <option value="card">Debit / Credit Card</option>
+      <option value="amazon">Amazon Gift Card</option>
+    </select>
+
+    <!-- PayPal / CashApp (buttons) -->
+    <div id="paylink-area" style="display:none;margin-top:10px">
+      <button id="pay-now" type="button" class="pay-btn alt"></button>
+    </div>
+
+    <!-- Card fields -->
+    <div id="card-area" style="display:none;margin-top:10px">
+      <label for="card-name">Name on Card</label>
+      <input id="card-name" type="text" placeholder="John Doe">
+
+      <label for="card-number">Card Number</label>
+      <input id="card-number" type="text" placeholder="1234 5678 9012 3456">
+
+      <div class="grid">
+        <div style="flex:1">
+          <label for="card-exp">Expiry (MM/YY)</label>
+          <input id="card-exp" type="text" placeholder="MM/YY">
+        </div>
+        <div style="flex:0 0 120px">
+          <label for="card-cvc">CVC</label>
+          <input id="card-cvc" type="text" placeholder="123">
+        </div>
+      </div>
+
+      <button id="card-submit" type="button">Pay with Card</button>
+    </div>
+
+    <!-- Amazon gift -->
+    <div id="amazon-area" style="display:none;margin-top:10px">
+      <label for="amazon-code">Amazon Gift Card Code</label>
+      <input id="amazon-code" type="text" placeholder="Enter gift card code">
+      <button id="amazon-submit" type="button">Redeem Gift Card</button>
+    </div>
+
+    <p class="note">All orders are processed within 3–5 business days via Post Office shipping.</p>
+  </form>
+</div>
+
+<footer>&copy; 2025 Sea Moss & Herbal Essentials</footer>
+
+<script>
+/* Load cart from localStorage and show summary */
+let cart = JSON.parse(localStorage.getItem('cart')||'[]');
+function renderCartSummary(){
+  const el = document.getElementById('cart-display');
+  el.innerHTML = '';
+  if(!cart.length){ el.innerHTML = '<em>Your cart is empty.</em>'; return; }
+  let total = 0;
+  cart.forEach(item=>{
+    const p = document.createElement('div'); p.textContent = `${item.name} × ${item.qty} — $${(item.price*item.qty).toFixed(2)}`;
+    el.appendChild(p);
+    total += item.price * item.qty;
+  });
+  const t = document.createElement('div'); t.style.marginTop='8px'; t.style.fontWeight='700'; t.textContent = `Total: $${total.toFixed(2)}`;
+  el.appendChild(t);
+}
+renderCartSummary();
+
+/* Payment handling UI */
+const payment = document.getElementById('payment');
+const paylinkArea = document.getElementById('paylink-area');
+const payNowBtn = document.getElementById('pay-now');
+const cardArea = document.getElementById('card-area');
+const amazonArea = document.getElementById('amazon-area');
+
+function hideAllPaymentAreas(){ paylinkArea.style.display='none'; cardArea.style.display='none'; amazonArea.style.display='none'; }
+
+payment.addEventListener('change', ()=>{
+  hideAllPaymentAreas();
+  const method = payment.value;
+  if(method==='paypal'){
+    paylinkArea.style.display='block';
+    payNowBtn.textContent = 'Pay with PayPal';
+    payNowBtn.onclick = ()=> window.open('https://www.paypal.me/PagetFoster','_blank');
+  } else if(method==='cashapp'){
+    paylinkArea.style.display='block';
+    payNowBtn.textContent = 'Pay with Cash App';
+    payNowBtn.onclick = ()=> window.open('https://cash.app/$pfoster12','_blank');
+  } else if(method==='card'){
+    cardArea.style.display='block';
+  } else if(method==='amazon'){
+    amazonArea.style.display='block';
+    document.getElementById('amazon-submit').onclick = ()=> {
+      const code = document.getElementById('amazon-code').value.trim();
+      if(!code){ alert('Please enter the Amazon gift card code.'); return; }
+      alert('Amazon code submitted. Thank you!');
+      clearCartAndFinish();
+    };
+  }
+});
+
+/* Card submit validation */
+document.getElementById('card-submit').addEventListener('click', ()=>{
+  const cname = document.getElementById('card-name').value.trim();
+  const cnum = document.getElementById('card-number').value.replace(/\s/g,'').trim();
+  const cexp = document.getElementById('card-exp').value.trim();
+  const ccvc = document.getElementById('card-cvc').value.trim();
+  if(!cname||!cnum||!cexp||!ccvc){ alert('Please fill in all card fields.'); return; }
+  // Basic length checks (not card processing)
+  if(cnum.length < 12){ alert('Please enter a valid card number.'); return; }
+  alert('Card payment recorded (demo). Thank you!');
+  clearCartAndFinish();
+});
+
+/* Form submit prevention (we use specific buttons) */
+document.getElementById('shippingForm').addEventListener('submit', (e)=> e.preventDefault());
+
+/* Clear cart and redirect to home after order */
+function clearCartAndFinish(){
+  localStorage.removeItem('cart');
+  setTimeout(()=>{ window.location.href = 'index.html'; }, 500);
+}
+
+/* Quick check: if cart empty, warn user */
+if(!cart.length){
+  // allow them to still fill form but show small notice
+  const n = document.createElement('div'); n.style.color='#a33'; n.style.marginBottom='12px';
+  n.textContent = 'Your cart is currently empty. Add items in Shop first.';
+  document.querySelector('.container').insertBefore(n, document.querySelector('.container').firstChild);
+}
+</script>
+</body>
+</html>
